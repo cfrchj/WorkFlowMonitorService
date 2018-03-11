@@ -1,0 +1,33 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+#++++++++++++++++++++++++++++++++++++++++++
+# Web前端界面显示
+
+# 主页，跳转到登陆界面
+GET     /                           controllers.HomeController.index()
+# 注册
+GET     /user_register              controllers.UserController.Create()
+
+
+
+#++++++++++++++++++++++++++++++++++++++++++
+#RESTFUL接口
+
+#用户创建
+POST    /API/User/create            controllers.APIController.user_create()
+#修改用户信息
+POST    /API/User/edit              controllers.APIController.user_edit()
+#删除用户
+POST    /API/User/delete            controllers.APIController.user_delete()
+
+
+#创建工作流
+POST    /API/Flow/create            controllers.APIController.flow_create()
+#修改工作流
+#POST    /API/Flow/edit
+
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
