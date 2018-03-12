@@ -3,32 +3,29 @@
 # ~~~~
 
 #++++++++++++++++++++++++++++++++++++++++++
-# Web URL
+# Web前端界面显示
 
-# Index
+# 主页，跳转到登陆界面
 GET     /                           controllers.HomeController.index()
-# Register
+# 注册
 GET     /user_register              controllers.HomeController.register()
 
-POST    /user_register              controllers.HomeController.postRegister()
-# Login
-GET     /user_login                 controllers.HomeController.login()
 
-POST    /user_login                 controllers.HomeController.postLogin()
+
 #++++++++++++++++++++++++++++++++++++++++++
-#RESTFUL API
+#RESTFUL接口
 
-#User create
+#用户创建
 POST    /API/User/create            controllers.APIController.user_create()
-#User edit
+#修改用户信息
 POST    /API/User/edit              controllers.APIController.user_edit()
-#User delete
+#删除用户
 POST    /API/User/delete            controllers.APIController.user_delete()
 
 
-#WorkFlow create
+#创建工作流
 POST    /API/Flow/create            controllers.APIController.flow_create()
-#WorkFlow edit
+#修改工作流
 #POST    /API/Flow/edit
 
 

@@ -1,4 +1,4 @@
-name := """WorkFlowMonitorService"""
+name := """MonitorService"""
 
 version := "1.0-SNAPSHOT"
 

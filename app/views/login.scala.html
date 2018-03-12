@@ -1,0 +1,15 @@
+@(userForm: Form[User])
+
+@import helper._
+
+<!DOCTYPE html>
+<html>
+    <body>
+        <h1> Login </h1>
+        @helper.form(action = routes.HomeController.postLogin()) {
+            @helper.inputText(userForm("user_id"))
+            @helper.inputPassword(userForm("user_password"))
+            <input type="submit">
+            }
+    </body>
+</html>

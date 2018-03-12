@@ -18,13 +18,14 @@ public class User extends Model{
     private String user_password;
     private String update_time;
 
-    public User(String user_id, String user_name, String user_mail, String user_phone, String user_password) {
+    public User(String user_id, String user_name, String user_mail, String user_phone, String user_password,String update_time) {
         String passwdHash = BCrypt.hashpw(user_password,BCrypt.gensalt());
         this.user_id = user_id;
         this.user_name = user_name;
         this.user_mail = user_mail;
         this.user_phone = user_phone;
         this.user_password = passwdHash;
+        this.update_time = update_time;
     }
 
     public static Finder<String,User> finder = new Finder<>(User.class);
@@ -97,4 +98,6 @@ public class User extends Model{
     public static void setFinder(Finder<String, User> finder) {
         User.finder = finder;
     }
+
+
 }

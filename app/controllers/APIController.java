@@ -3,10 +3,14 @@ package controllers;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import models.User;
+import models.WorkFlow;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 import utils.IdUtil;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 public class APIController extends Controller {
@@ -18,6 +22,19 @@ public class APIController extends Controller {
     IdUtil idUtil = new IdUtil((int)(Math.random()*10));
 
     /*
+        Send:
+        {
+            "user_name": "jing",
+            "user_mail": "jing@mail.com",
+            "user_phone": "123456789",
+            "user_passwd": "abc"
+        }
+        Recieve:
+
+        {
+            "status": "success",
+            "userid": "5321564******"
+        }
 
      */
     public Result user_create(){
@@ -41,7 +58,8 @@ public class APIController extends Controller {
                 return ok(result);
             } else {
                 String userid = String.valueOf(idUtil.nextId());
-                User user = new User(userid,username,usermail,userphone,userpasswd);
+                String update_time = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date());
+                User user = new User(userid,username,usermail,userphone,userpasswd,update_time);
                 user.save();                                                                //插入数据到数据库
                 result.put("status","success");
                 result.put("userid", userid);
@@ -53,6 +71,19 @@ public class APIController extends Controller {
 
     /*
 
+        Send:
+        {
+            "user_id":"5321564******"，
+            "user_name": "jing",                可选
+            "user_mail": "jing@mail.com",       可选
+            "user_phone": "123456789",          可选
+            "user_passwd": "abc"                可选
+        }
+        Recieve:
+
+        {
+            "status": "success"
+        }
      */
     public Result user_edit(){
         JsonNode json = request().body().asJson();
@@ -92,6 +123,8 @@ public class APIController extends Controller {
                 if(userpasswd!=null){
                     user.setUser_password(userpasswd);
                 }
+                String update_time = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date());
+                user.setUpdate_time(update_time);
                 user.update();
                 result.put("status","success");
                 return ok(result);
@@ -100,7 +133,15 @@ public class APIController extends Controller {
     }
 
     /*
+         Send:
+        {
+            "user_id":"5321564******"
+        }
+        Recieve:
 
+        {
+            "status": "success"
+        }
      */
     public Result user_delete(){
         JsonNode json = request().body().asJson();
@@ -120,6 +161,7 @@ public class APIController extends Controller {
                 if(user == null) {
                     result.put("status", "error");
                     result.put("message", "User not found");
+                    return ok(result);
                 }
                 user.delete();
                 result.put("status","success");
@@ -128,6 +170,7 @@ public class APIController extends Controller {
         }
 
     }
+
 
     /*
 
@@ -138,10 +181,38 @@ public class APIController extends Controller {
 
     /*
 
+
+
      */
     public Result flow_create(){
 
-        return TODO;
+        JsonNode json = request().body().asJson();
+        ObjectNode result = Json.newObject();
+
+        if(json == null) {
+            //处理异常
+            result.put("status","error");
+            result.put("message","Expecting Json data");
+            return ok(result);
+        }else {
+            String flow_name = json.findPath("flow_name").textValue();
+            String flow_creator = json.findPath("user_id").textValue();
+
+            if(flow_name == null||flow_creator == null) {
+                result.put("status","error");
+                result.put("message","Missing parameter");
+                return ok(result);
+            } else {
+                String flow_id = String.valueOf(idUtil.nextId());
+                String flow_tasks = flow_id;
+                String update_time = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date());
+                WorkFlow workFlow = new WorkFlow(flow_id,flow_name,flow_creator,"Not monitored",flow_tasks,null,update_time);
+                workFlow.save();                                                                               //插入数据到数据库
+                result.put("status","success");
+                result.put("flow_id", flow_id);
+                return ok(result);
+            }
+        }
 
     }
 
@@ -149,7 +220,42 @@ public class APIController extends Controller {
 
      */
     public Result flow_edit(){
-        return TODO;
+        JsonNode json = request().body().asJson();
+        ObjectNode result = Json.newObject();
+
+        if(json == null) {
+            //处理异常
+            result.put("status","error");
+            result.put("message","Expecting Json data");
+            return ok(result);
+        } else {
+            String flow_id = json.findPath("flow_id").textValue();
+            String flow_name = json.findPath("flow_name").textValue();
+            String flow_creator = json.findPath("user_id").textValue();
+
+            if(flow_id == null) {
+                result.put("status","error");
+                result.put("message","Missing parameter user_id");
+                return ok(result);
+            } else {
+                WorkFlow workFlow = WorkFlow.finder.byId(flow_id);
+                if(workFlow == null) {
+                    result.put("status", "error");
+                    result.put("message", "User not found");
+                }
+                if(flow_name!=null){
+                    workFlow.setFlow_name(flow_name);
+                }
+                if(flow_creator!=null){
+                    workFlow.setFlow_creator(flow_creator);
+                }
+                String update_time = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date());
+                workFlow.setUpdate_time(update_time);
+                workFlow.update();
+                result.put("status","success");
+                return ok(result);
+            }
+        }
 
     }
 
@@ -157,8 +263,30 @@ public class APIController extends Controller {
 
      */
     public Result flow_delete(){
-        return TODO;
-
+        JsonNode json = request().body().asJson();
+        ObjectNode result = Json.newObject();
+        if(json == null) {
+            result.put("status","error");
+            result.put("message","Expecting Json data");
+            return ok(result);
+        } else {
+            String flow_id = json.findPath("flow_id").textValue();
+            if(flow_id == null) {
+                result.put("status","error");
+                result.put("message","Missing parameter user_id");
+                return ok(result);
+            } else {
+                WorkFlow workFlow = WorkFlow.finder.byId(flow_id);
+                if(workFlow == null) {
+                    result.put("status", "error");
+                    result.put("message", "User not found");
+                    return ok(result);
+                }
+                workFlow.delete();
+                result.put("status","success");
+                return ok(result);
+            }
+        }
     }
 
     /*
@@ -201,5 +329,6 @@ public class APIController extends Controller {
         return TODO;
 
     }
+
 
 }
