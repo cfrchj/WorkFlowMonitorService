@@ -15,6 +15,7 @@ POST    /user_register              controllers.HomeController.postRegister()
 GET     /user_login                 controllers.HomeController.login()
 
 POST    /user_login                 controllers.HomeController.postLogin()
+
 #++++++++++++++++++++++++++++++++++++++++++
 #RESTFUL API
 
@@ -26,11 +27,28 @@ POST    /API/User/edit              controllers.APIController.user_edit()
 POST    /API/User/delete            controllers.APIController.user_delete()
 
 
-#WorkFlow create
+#Flow create
 POST    /API/Flow/create            controllers.APIController.flow_create()
-#WorkFlow edit
-#POST    /API/Flow/edit
+#Flow edit
+POST    /API/Flow/edit              controllers.APIController.flow_edit()
+#Flow delete
+POST    /API/Flow/delete            controllers.APIController.flow_delete()
 
+
+#Flow create
+POST    /API/Task/create            controllers.APIController.task_create()
+#Flow edit
+POST    /API/Task/edit              controllers.APIController.task_edit()
+#Flow delete
+POST    /API/Task/delete            controllers.APIController.task_delete()
+
+
+#Flow create
+POST    /API/Monitor/create            controllers.APIController.task_create()
+#Flow edit
+POST    /API/Monitor/edit              controllers.APIController.task_edit()
+#Flow delete
+POST    /API/Monitor/delete            controllers.APIController.task_delete()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

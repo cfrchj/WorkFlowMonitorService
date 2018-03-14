@@ -1,8 +1,11 @@
 package utils;
 
 import java.sql.SQLException;
+import java.util.TimerTask;
 
-public class Monitor extends Thread{
+import static java.lang.Thread.sleep;
+
+public class Monitor extends TimerTask{
 
     private String appid ;
     private String taskid;
@@ -12,7 +15,6 @@ public class Monitor extends Thread{
     }
     @Override
     public void run() {
-        super.run();
         YarnUtils.init();
         while(true){
             try {

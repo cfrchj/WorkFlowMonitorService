@@ -6,11 +6,9 @@ import io.ebean.Model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.sql.Time;
-import java.sql.Timestamp;
 
 @Entity
-public class WorkFlow extends Model{
+public class Flow extends Model{
     @Id
     private String flow_id;
     private String flow_name;
@@ -20,7 +18,7 @@ public class WorkFlow extends Model{
     private String flow_first_id;
     private String update_time;
 
-    public WorkFlow(String flow_id, String flow_name, String flow_creator, String flow_status, String flow_tasks, String flow_first_id, String update_time) {
+    public Flow(String flow_id, String flow_name, String flow_creator, String flow_status, String flow_tasks, String flow_first_id, String update_time) {
         this.flow_id = flow_id;
         this.flow_name = flow_name;
         this.flow_creator = flow_creator;
@@ -30,7 +28,7 @@ public class WorkFlow extends Model{
         this.update_time = update_time;
     }
 
-    public static Finder<String,WorkFlow> finder = new Finder<>(WorkFlow.class);
+    public static Finder<String, Flow> finder = new Finder<>(Flow.class);
 
     public String getFlow_id() {
         return flow_id;
@@ -88,11 +86,4 @@ public class WorkFlow extends Model{
         this.update_time = update_time;
     }
 
-    public static Finder<String, WorkFlow> getFinder() {
-        return finder;
-    }
-
-    public static void setFinder(Finder<String, WorkFlow> finder) {
-        WorkFlow.finder = finder;
-    }
 }

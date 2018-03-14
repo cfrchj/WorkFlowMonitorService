@@ -91,13 +91,4 @@ public class User extends Model{
         this.update_time = update_time;
     }
 
-    public static Finder<String, User> getFinder() {
-        return finder;
-    }
-
-    public static void setFinder(Finder<String, User> finder) {
-        User.finder = finder;
-    }
-
-
 }
