@@ -1,4 +1,10 @@
 package models;
 
-public class Alarm {
+import io.ebean.Model;
+
+import javax.persistence.Entity;
+
+@Entity
+public class Alarm extends Model{
+
 }
