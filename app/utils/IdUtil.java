@@ -31,7 +31,7 @@ public class IdUtil {
         this.workerId = workerId;
     }
 
-    public synchronized long nextId() {
+    public synchronized String  nextId() {
         long timestamp = this.timeGen();
         if (this.lastTimestamp == timestamp) {
             this.sequence = (this.sequence + 1) & this.sequenceMask;
@@ -60,7 +60,7 @@ public class IdUtil {
         //System.out.println("timestamp:" + timestamp + ",timestampLeftShift:"
         //        + timestampLeftShift + ",nextId:" + nextId + ",workerId:"
         //        + workerId + ",sequence:" + sequence);
-        return nextId;
+        return String.valueOf(nextId);
     }
 
     private long tilNextMillis(final long lastTimestamp) {

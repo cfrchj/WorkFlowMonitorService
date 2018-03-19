@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.gson.JsonArray;
 import io.ebean.Ebean;
+import models.Monitor;
 import models.Task;
 import models.User;
 import models.Flow;
@@ -66,7 +67,7 @@ public class APIController extends Controller {
                 result.put("message","Missing parameter");
                 return ok(result);
             } else {
-                String userid = String.valueOf(idUtil.nextId());
+                String userid = idUtil.nextId();
                 String update_time = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date());
                 User user = new User(userid,username,usermail,userphone,userpasswd,update_time);
                 user.save();                                                                //插入数据到数据库
@@ -204,7 +205,7 @@ public class APIController extends Controller {
                 result.put("message","Missing parameter");
                 return ok(result);
             } else {
-                String flow_id = String.valueOf(idUtil.nextId());
+                String flow_id = idUtil.nextId();
                 String flow_tasks = flow_id;
                 String update_time = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date());
                 Flow flow = new Flow(flow_id,flow_name,flow_creator,"Not monitored",flow_tasks,null,update_time);
@@ -313,7 +314,7 @@ public class APIController extends Controller {
      ]
      }
      */
-    public Result task_create() {
+    public Result task_create() throws JSONException {
         JsonNode json = request().body().asJson();
         ObjectNode result = Json.newObject();
 
@@ -341,7 +342,7 @@ public class APIController extends Controller {
                 //get task_id
                 ArrayList<String> taskids = new ArrayList<>();
                 for(int i = 0; i < arr.length(); i++) {
-                    taskids.add(String.valueOf(idUtil.nextId()));
+                    taskids.add(idUtil.nextId());
                 }
 
                 Flow flow = Flow.finder.byId(flow_id);
@@ -387,12 +388,13 @@ public class APIController extends Controller {
 
      */
     public Result task_edit(){
+
         return TODO;
 
     }
 
     /**
-
+     {"taskid":""}
      */
     public Result task_delete(){
         return TODO;
@@ -400,11 +402,37 @@ public class APIController extends Controller {
     }
 
     /**
-
+     {"tasks":[{"task_id",""},{"task_id",""},{"task_id",""}]}
      */
-    public Result monitor_create(){
+    public Result monitor_create() throws JSONException {
+        JsonNode json = request().body().asJson();
+        ObjectNode result = Json.newObject();
 
-        return TODO;
+        if(json == null) {
+            result.put("status","error");
+            result.put("message","Expecting Json data");
+            return ok(result);
+        } else {
+            //get json data
+            String tasks = json.findPath("tasks").textValue();
+
+            if(tasks == null) {
+                result.put("status","error");
+                result.put("message","Missing parameter flow_id");
+                return ok(result);
+            } else {
+                JSONArray arr = new JSONArray(tasks);
+
+                for(int i = 0; i < arr.length(); i++){
+                    String task_id = arr.getJSONObject(i).getString("task_id");
+                    String update_time = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date());
+                    Monitor monitor = new Monitor(idUtil.nextId(),task_id,update_time);
+                    monitor.save();
+                }
+                result.put("status","success");
+                return ok(result);
+            }
+        }
 
     }
 
