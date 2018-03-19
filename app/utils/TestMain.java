@@ -1,5 +1,5 @@
 package utils;
-
+/*
 import org.apache.spark.SparkConf;
 import org.apache.spark.SparkContext;
 import org.apache.spark.api.java.JavaRDD;
@@ -10,9 +10,9 @@ import org.apache.spark.streaming.api.java.JavaStreamingContext;
 import org.apache.spark.streaming.scheduler.*;
 
 
-/**
+**
  * Created by akhld on 26/5/15.
- */
+
 public class TestMain {
 
     public static void main(String[] args) throws Exception{
@@ -74,4 +74,4 @@ class JobListener implements StreamingListener {
     }
 
 
-}
+}*/

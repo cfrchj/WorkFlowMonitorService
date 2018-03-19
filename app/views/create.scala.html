@@ -6,12 +6,12 @@
     <h1>Create User</h1>
 
     @helper.form(action = routes.HomeController.postRegister()){
-        @helper.inputText(userForm("user_name"))
-        @helper.inputText(userForm("user_mail"))
-        @helper.inputText(userForm("user_phone"))
-        @helper.inputPassword(userForm("user_password"))
+        @helper.inputText(userForm("user_name"),'class-> "form-control")
+        @helper.inputText(userForm("user_mail"),'class-> "form-control")
+        @helper.inputText(userForm("user_phone"),'class-> "form-control")
+        @helper.inputPassword(userForm("user_password"),'class-> "form-control")
 
-        <input type="submit" value="Create User">
+        <button class="btn btn-success" type="submit"> Create User</button>
     }
 
 }

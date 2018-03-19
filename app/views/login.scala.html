@@ -1,15 +1,12 @@
-@(userForm: Form[User])
+@layout(""){
 
-@import helper._
+    <form action="@routes.HomeController.postLogin()" method="post">
+        <h4>CRS2大数据平台业务监控系统</h4>
 
-<!DOCTYPE html>
-<html>
-    <body>
-        <h1> Login </h1>
-        @helper.form(action = routes.HomeController.postLogin()) {
-            @helper.inputText(userForm("user_id"))
-            @helper.inputPassword(userForm("user_password"))
-            <input type="submit">
-            }
-    </body>
-</html>
+        <input type="text" name="usermail" placeholder="请输入注册邮箱" required autofocus/>
+        <input type="password" name="password" placeholder="请输入密码" required autofocus/>
+        <a href="@routes.HomeController.register()">注册账号</a>
+        <button type="button">登录</button>
+
+    </form>
+}

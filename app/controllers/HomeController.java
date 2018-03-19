@@ -1,6 +1,7 @@
 package controllers;
 
 import models.User;
+import play.data.DynamicForm;
 import play.data.Form;
 import play.data.FormFactory;
 import play.mvc.*;
@@ -8,6 +9,7 @@ import utils.IdUtil;
 import views.html.create;
 import views.html.index;
 import views.html.login;
+import views.html.test;
 
 
 import javax.inject.Inject;
@@ -23,6 +25,7 @@ public class HomeController extends Controller {
     public Result index() {
 
         return ok(index.render());
+
     }
 
     public Result register() {
@@ -43,17 +46,17 @@ public class HomeController extends Controller {
     }
 
     public  Result login() {
-        Form<User> userForm = formFactory.form(User.class);
-        return ok(login.render(userForm));
+
+        return ok(login.render());
 
     }
 
     public Result postLogin() {
-        Form<User> userForm = formFactory.form(User.class).bindFromRequest();
-        User user =  User.finder.byId(userForm.get().getUser_id());
-        if (user == null) {
-            return ok("wrong 1 ");
-        }
-        return  ok(userForm.get().getUser_password());
+        DynamicForm userForm = formFactory.form().bindFromRequest();
+
+        String user_mail = userForm.get("usermail");
+        String user_passwd = userForm.get("password");
+
+        return  ok(test.render(user_mail,user_passwd));
     }
 }
