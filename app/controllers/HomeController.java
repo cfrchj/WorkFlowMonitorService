@@ -23,14 +23,11 @@ public class HomeController extends Controller {
     IdUtil idUtil = new IdUtil((int) (Math.random() * 10));
 
     public Result index() {
-
         return ok(index.render());
-
     }
 
     public Result register() {
-        Form<User> userForm = formFactory.form(User.class);
-        return ok(create.render(userForm));
+        return ok(create.render());
     }
 
     public Result postRegister() {
@@ -41,22 +38,17 @@ public class HomeController extends Controller {
         user.setUser_id(userid);
         user.setUpdate_time(update_time);
         user.save();
-
         return redirect(routes.HomeController.index());
     }
 
     public  Result login() {
-
         return ok(login.render());
-
     }
 
     public Result postLogin() {
         DynamicForm userForm = formFactory.form().bindFromRequest();
-
         String user_mail = userForm.get("usermail");
         String user_passwd = userForm.get("password");
-
         return  ok(test.render(user_mail,user_passwd));
     }
 }

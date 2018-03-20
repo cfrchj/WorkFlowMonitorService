@@ -8,13 +8,13 @@
 # Index
 GET     /                           controllers.HomeController.index()
 # Register
-GET     /user_register              controllers.HomeController.register()
+GET     /Register                   controllers.HomeController.register()
 
-POST    /user_register              controllers.HomeController.postRegister()
+POST    /Register                   controllers.HomeController.postRegister()
 # Login
-GET     /user_login                 controllers.HomeController.login()
+GET     /Login                      controllers.HomeController.login()
 
-POST    /user_login                 controllers.HomeController.postLogin()
+POST    /Login                      controllers.HomeController.postLogin()
 
 #++++++++++++++++++++++++++++++++++++++++++
 #RESTFUL API
