@@ -1,4 +1,4 @@
-@(title:String)(body : Html)
+@(title:String)(username:String)(body : Html)
 
 <html>
     <head>
@@ -22,19 +22,25 @@
                         <a href="@routes.HomeController.index()" class="navbar-brand">CRS2大数据平台业务监控系统</a>
                     </div>
                     <div class = "collapse navbar-collapse" id="exnav">
-                        <ul class="nav navbar-nav navbar-right ">
-                            <li><a href="@routes.HomeController.login()">登录</a> </li>
-                            <li><a href="@routes.HomeController.register()">注册</a></li>
+                        <ul class="nav navbar-nav navbar-left ">
+                            <li><a href="">工作流</a></li>
+                            <li><a href="">监控任务</a></li>
+                            <li><a href="">告警信息</a></li>
 
                         </ul>
+
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="">@username</a></li>
+                        </ul>
                     </div>
+
                 </div>
             </div>
         </header>
 
 
         <div class="container">
-            @body
+        @body
         </div>
 
         <script src="@routes.Assets.versioned("js/jquery-3.3.1.min.js")"></script>

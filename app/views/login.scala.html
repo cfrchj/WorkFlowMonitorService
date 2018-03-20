@@ -1,20 +1,29 @@
-@layout(""){
+@import helper._
+
+
+@layout("登录"){
+    <h3>登录</h3>
     @helper.form(action = routes.HomeController.postLogin()) {
+        @CSRF.formField
+
         <div class="form-group row">
-            <label for="InputEmail1" class="col-sm-2 col-form-label">Email</label>
+            <label class="col-sm-2 col-form-label">用户名</label>
             <div class="col-sm-10">
-                <input type="email" class="form-control" id="InputEmail1" placeholder="Email">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
-            <div class="col-sm-10">
-                <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                <input type="text" class="form-control" name="username" placeholder="UserName">
             </div>
         </div>
 
-        <a href="@routes.HomeController.register()">注册账号</a>
-        <button type="button" class="btn btn-default">登录</button>
+        <div class="form-group row">
+            <label for="inputPassword" class="col-sm-2 col-form-label">密码</label>
+            <div class="col-sm-10">
+                <input type="password" class="form-control" name="password" placeholder="Password">
+            </div>
+        </div>
+
+        <div class="form-group " row>
+            <button type="submit" class="btn btn-default" >登录</button>
+        </div>
+
 
     }
 }
