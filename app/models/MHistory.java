@@ -21,7 +21,7 @@ public class MHistory extends Model{
         this.finish_time = finish_time;
     }
 
-    public static Finder<String,Monitor> finder = new Finder<>(Monitor.class);
+    public static Finder<String,MHistory> finder = new Finder<>(MHistory.class);
 
     public String getMonitor_id() {
         return monitor_id;
