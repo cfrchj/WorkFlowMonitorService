@@ -32,11 +32,11 @@ public class Constant {
 
     }
 
-    public static String findPasswordbyName(String username){
+    public static User findPasswordbyName(String username){
 
         for(User user:users){
             if(user.getUser_name().equals(username)){
-                return user.getUser_password();
+                return user;
             }
         }
         return null;

@@ -22,22 +22,31 @@ public class HomeController extends Controller {
 
     @Inject
     FormFactory formFactory;
+
+    //登录注册界面
     public Result index() {
-        InitMemList();
-        String name = session("username");
-        return ok(mainpage.render("景鹏坤"));
-        /*
-        if(name!= null){
-            return ok(index.render());
-        }else{
-            return ok(mainpage.render(name));
-        }*/
+        return ok(index.render());
+
     }
 
+    //登录后的主页
+    public Result mainPage(){
+        String userid = session("userid");
+        //return ok(mainpage.render("景鹏坤"));
+        if(userid == null){
+            return redirect("/Login");
+        }else{
+            User user = User.finder.byId(userid);
+            return ok(mainpage.render(user));
+        }
+    }
+
+    //注册
     public Result register() {
         return ok(create.render());
     }
 
+    //处理注册
     public Result postRegister() {
         DynamicForm userForm = formFactory.form().bindFromRequest();
         String username = userForm.get("username");
@@ -49,28 +58,39 @@ public class HomeController extends Controller {
         User user = new User(userid,username,usermail,userphone,userpasswd,update_time);
         user.save();
         users.add(user);
-        return redirect(routes.HomeController.index());
+        return redirect(routes.HomeController.login());
     }
 
+    //登录
     public  Result login() {
         return ok(login.render());
     }
 
+    //处理登录
     public Result postLogin() {
         DynamicForm userForm = formFactory.form().bindFromRequest();
-        String user_name = userForm.get("username");
-        String user_passwd = userForm.get("password");
+        String name = userForm.get("username");
+        String password = userForm.get("password");
         //return ok(test.render(user_name,user_passwd));
-        InitMemList();
-        String password = findPasswordbyName(user_name);
-        if(password == null){
+        User user = findPasswordbyName(name);
+        if(user == null){
             return TODO;
-        }else if(BCrypt.checkpw(user_passwd,password)){
+        }else if(BCrypt.checkpw(password,user.getUser_password())){
             session().clear();
-            session("username",userForm.get("username"));
-            return redirect("/");
+            session("userid",user.getUser_id());
+            return redirect("/MainPage");
         }
 
         return  TODO;
     }
+
+    public Result userPage(User user){
+
+        return ok(userpage.render(user));
+
+    }
+
+
+
+    public Result Test(){ return ok(test.render());}
 }

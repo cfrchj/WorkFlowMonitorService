@@ -1,4 +1,4 @@
-@(title:String)(username:String)(body : Html)
+@(title:String)(user:User)(body : Html)
 
 <html>
     <head>
@@ -28,7 +28,9 @@
                             <li><a href="">告警信息</a></li>
 
                         </ul>
-
+                        <ul class="nav navbar-nav navbar-left">
+                            <li><a href="@routes.HomeController.userPage(user)" >@user.getUser_name</a></li>
+                        </ul>
                     </div>
 
                 </div>
