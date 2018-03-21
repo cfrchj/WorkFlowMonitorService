@@ -29,18 +29,14 @@ public class HomeController extends Controller {
 
     //登录后的主页
     public Result mainPage(){
+
         String userid = session("userid");
-        userid = "3813902659519488";
-        //return ok(mainpage.render("景鹏坤"));
-        if(userid == null){
-            return redirect("/Login");
+        User u = User.finder.byId(userid);
+
+        if(u == null){
+            return redirect(routes.HomeController.login());
         }else{
-            //return ok(test.render(userid));
-            User user = User.finder.byId(userid);
-            if(user == null){
-                return TODO;
-            }
-            return ok(mainpage.render(user.getUser_name()));
+            return ok(mainpage.render(u.getUser_name()));
         }
     }
 

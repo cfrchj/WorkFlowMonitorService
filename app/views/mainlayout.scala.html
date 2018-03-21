@@ -23,13 +23,49 @@
                     </div>
                     <div class = "collapse navbar-collapse" id="exnav">
                         <ul class="nav navbar-nav navbar-left ">
-                            <li><a href="@routes.HomeController.workFlow()">工作流</a></li>
-                            <li><a href="@routes.HomeController.taskMonitor()">监控任务</a></li>
-                            <li><a href="@routes.HomeController.alarmInfo()">告警信息</a></li>
-
+                            <li class="dropdown">
+                                <a href="@routes.HomeController.workFlow()" class="dropdown-toggle" data-toggle="dropdown">
+                                    工作流<b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">创建工作流</a></li>
+                                    <li><a href="#">查看工作流</a></li>
+                                    <li><a href="#">修改工作流</a></li>
+                                    <li><a href="#">删除工作流</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="@routes.HomeController.taskMonitor()" class="dropdown-toggle" data-toggle="dropdown">
+                                    监控任务<b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">创建监控任务</a></li>
+                                    <li><a href="#">查看监控任务</a></li>
+                                    <li><a href="#">修改监控任务</a></li>
+                                    <li><a href="#">删除监控任务</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="@routes.HomeController.alarmInfo()" class="dropdown-toggle" data-toggle="dropdown">
+                                    告警信息<b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">查看告警信息</a></li>
+                                    <li><a href="#">删除告警信息</a></li>
+                                </ul>
+                            </li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a href="@routes.HomeController.userPage()">@username</a></li>
+                            <li class="dropdown">
+                                <a href="@routes.HomeController.userPage()" class="dropdown-toggle" data-toggle="dropdown">
+                                    @username<b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">修改信息</a> </li>
+                                    <li><a href="#">更改密码</a></li>
+                                    <li><a href="#">注销登录</a></li>
+                                </ul>
+                            </li>
                         </ul>
                     </div>
 
