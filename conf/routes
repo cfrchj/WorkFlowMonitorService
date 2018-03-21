@@ -17,10 +17,14 @@ POST    /Register                   controllers.HomeController.postRegister()
 GET     /Login                      controllers.HomeController.login()
 
 POST    /Login                      controllers.HomeController.postLogin()
-
-POST    /UserPage                   controllers.HomeController.userPage(User user)
-
-GET     /Test                       controllers.HomeController.Test()
+#UserPage
+GET     /UserPage                   controllers.HomeController.userPage()
+#WorkFlow
+GET     /WorkFLow                   controllers.HomeController.workFlow()
+#
+GET     /TaskMonitor                controllers.HomeController.taskMonitor()
+#
+GET     /AlarmInfo                  controllers.HomeController.alarmInfo()
 
 #++++++++++++++++++++++++++++++++++++++++++
 #RESTFUL API

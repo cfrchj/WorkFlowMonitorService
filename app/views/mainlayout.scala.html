@@ -1,4 +1,4 @@
-@(title:String)(user:User)(body : Html)
+@(title:String)(username:String)(body : Html)
 
 <html>
     <head>
@@ -19,17 +19,17 @@
                             <span class = "icon-bar"></span>
 
                         </button>
-                        <a href="@routes.HomeController.index()" class="navbar-brand">CRS2大数据平台业务监控系统</a>
+                        <a href="@routes.HomeController.mainPage()" class="navbar-brand">CRS2业务监控系统</a>
                     </div>
                     <div class = "collapse navbar-collapse" id="exnav">
                         <ul class="nav navbar-nav navbar-left ">
-                            <li><a href="">工作流</a></li>
-                            <li><a href="">监控任务</a></li>
-                            <li><a href="">告警信息</a></li>
+                            <li><a href="@routes.HomeController.workFlow()">工作流</a></li>
+                            <li><a href="@routes.HomeController.taskMonitor()">监控任务</a></li>
+                            <li><a href="@routes.HomeController.alarmInfo()">告警信息</a></li>
 
                         </ul>
-                        <ul class="nav navbar-nav navbar-left">
-                            <li><a href="@routes.HomeController.userPage(user)" >@user.getUser_name</a></li>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="@routes.HomeController.userPage()">@username</a></li>
                         </ul>
                     </div>
 

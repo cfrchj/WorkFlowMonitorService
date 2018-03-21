@@ -35,7 +35,7 @@ libraryDependencies += "org.apache.hadoop" % "hadoop-yarn-server-resourcemanager
 // https://mvnrepository.com/artifact/org.apache.hadoop/hadoop-client
 libraryDependencies += "org.apache.hadoop" % "hadoop-client" % "2.6.0"
 // https://mvnrepository.com/artifact/org.apache.spark/spark-streaming
-libraryDependencies += "org.apache.spark" %% "spark-streaming" % "1.6.1" % "provided"
+//libraryDependencies += "org.apache.spark" %% "spark-streaming" % "1.6.1" % "provided"
 
 
 // Make verbose tests

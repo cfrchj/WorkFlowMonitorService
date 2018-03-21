@@ -3,10 +3,8 @@ package controllers;
 import models.User;
 import org.mindrot.jbcrypt.BCrypt;
 import play.data.DynamicForm;
-import play.data.Form;
 import play.data.FormFactory;
 import play.mvc.*;
-import utils.IdUtil;
 import views.html.*;
 
 
@@ -14,8 +12,7 @@ import javax.inject.Inject;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static controllers.Constant.InitMemList;
-import static controllers.Constant.findPasswordbyName;
+import static controllers.Constant.findUserbyName;
 import static controllers.Constant.users;
 
 public class HomeController extends Controller {
@@ -25,6 +22,7 @@ public class HomeController extends Controller {
 
     //登录注册界面
     public Result index() {
+        Constant.InitMemList();
         return ok(index.render());
 
     }
@@ -32,12 +30,17 @@ public class HomeController extends Controller {
     //登录后的主页
     public Result mainPage(){
         String userid = session("userid");
+        userid = "3813902659519488";
         //return ok(mainpage.render("景鹏坤"));
         if(userid == null){
             return redirect("/Login");
         }else{
+            //return ok(test.render(userid));
             User user = User.finder.byId(userid);
-            return ok(mainpage.render(user));
+            if(user == null){
+                return TODO;
+            }
+            return ok(mainpage.render(user.getUser_name()));
         }
     }
 
@@ -57,6 +60,7 @@ public class HomeController extends Controller {
         String update_time = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date());
         User user = new User(userid,username,usermail,userphone,userpasswd,update_time);
         user.save();
+        Constant.InitMemList();
         users.add(user);
         return redirect(routes.HomeController.login());
     }
@@ -72,7 +76,7 @@ public class HomeController extends Controller {
         String name = userForm.get("username");
         String password = userForm.get("password");
         //return ok(test.render(user_name,user_passwd));
-        User user = findPasswordbyName(name);
+        User user = findUserbyName(name);
         if(user == null){
             return TODO;
         }else if(BCrypt.checkpw(password,user.getUser_password())){
@@ -84,13 +88,26 @@ public class HomeController extends Controller {
         return  TODO;
     }
 
-    public Result userPage(User user){
-
-        return ok(userpage.render(user));
-
+    //用户主页
+    public Result userPage(){
+        String userid = session("userid");
+        User user = User.finder.byId(userid);
+        //return ok(userpage.render(user));
+        return TODO;
     }
 
+    //工作流页面
+    public Result workFlow(){
+        return TODO;
+    }
 
+    //业务监控页面
+    public Result taskMonitor(){
+        return TODO;
+    }
 
-    public Result Test(){ return ok(test.render());}
+    //告警信息页面
+    public Result alarmInfo(){
+        return TODO;
+    }
 }
