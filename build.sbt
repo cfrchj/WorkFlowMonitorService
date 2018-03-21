@@ -34,6 +34,9 @@ libraryDependencies += "org.apache.hadoop" % "hadoop-yarn-client" % "2.6.0"
 libraryDependencies += "org.apache.hadoop" % "hadoop-yarn-server-resourcemanager" % "2.6.0" % Test
 // https://mvnrepository.com/artifact/org.apache.hadoop/hadoop-client
 libraryDependencies += "org.apache.hadoop" % "hadoop-client" % "2.6.0"
+// https://mvnrepository.com/artifact/org.apache.spark/spark-streaming
+libraryDependencies += "org.apache.spark" %% "spark-streaming" % "1.6.1" % "provided"
+
 
 // Make verbose tests
 testOptions in Test := Seq(Tests.Argument(TestFrameworks.JUnit, "-a", "-v"))

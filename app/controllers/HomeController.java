@@ -22,8 +22,6 @@ public class HomeController extends Controller {
 
     @Inject
     FormFactory formFactory;
-    IdUtil idUtil = new IdUtil((int) (Math.random() * 10));
-
     public Result index() {
         InitMemList();
         String name = session("username");
@@ -46,7 +44,7 @@ public class HomeController extends Controller {
         String usermail = userForm.get("usermail");
         String userphone = userForm.get("userphone");
         String userpasswd = userForm.get("password");
-        String userid = String.valueOf(idUtil.nextId());
+        String userid = String.valueOf(Constant.idUtil.nextId());
         String update_time = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date());
         User user = new User(userid,username,usermail,userphone,userpasswd,update_time);
         user.save();

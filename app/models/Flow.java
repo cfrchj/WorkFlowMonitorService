@@ -6,6 +6,7 @@ import io.ebean.Model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.util.Objects;
 
 @Entity
 public class Flow extends Model{
@@ -86,4 +87,23 @@ public class Flow extends Model{
         this.update_time = update_time;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Flow)) return false;
+        Flow flow = (Flow) o;
+        return Objects.equals(getFlow_id(), flow.getFlow_id()) &&
+                Objects.equals(getFlow_name(), flow.getFlow_name()) &&
+                Objects.equals(getFlow_creator(), flow.getFlow_creator()) &&
+                Objects.equals(getFlow_status(), flow.getFlow_status()) &&
+                Objects.equals(getFlow_tasks(), flow.getFlow_tasks()) &&
+                Objects.equals(getFlow_first_id(), flow.getFlow_first_id()) &&
+                Objects.equals(getUpdate_time(), flow.getUpdate_time());
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(getFlow_id(), getFlow_name(), getFlow_creator(), getFlow_status(), getFlow_tasks(), getFlow_first_id(), getUpdate_time());
+    }
 }

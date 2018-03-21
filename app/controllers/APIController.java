@@ -11,20 +11,17 @@ import org.codehaus.jettison.json.JSONException;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
-import utils.IdUtil;
+import utils.Monitor_Task;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Timer;
 
 
 public class APIController extends Controller {
 
     //RESTFUL API 接口
-
-
-    //ID生成
-    IdUtil idUtil = new IdUtil((int)(Math.random()*10));
 
     /**
         Send:
@@ -63,9 +60,10 @@ public class APIController extends Controller {
                 result.put("message","Missing parameter");
                 return ok(result);
             } else {
-                String userid = idUtil.nextId();
+                String userid = Constant.idUtil.nextId();
                 String update_time = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date());
                 User user = new User(userid,username,usermail,userphone,userpasswd,update_time);
+                Constant.users.add(user);
                 user.save();                                                                //插入数据到数据库
                 result.put("status","success");
                 result.put("userid", userid);
@@ -117,6 +115,7 @@ public class APIController extends Controller {
                     result.put("status", "error");
                     result.put("message", "User not found");
                 }
+                Constant.users.remove(user);
                 if(username!=null){
                     user.setUser_name(username);
                 }
@@ -132,6 +131,7 @@ public class APIController extends Controller {
                 String update_time = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date());
                 user.setUpdate_time(update_time);
                 user.update();
+                Constant.users.add(user);
                 result.put("status","success");
                 return ok(result);
             }
@@ -169,6 +169,7 @@ public class APIController extends Controller {
                     result.put("message", "User not found");
                     return ok(result);
                 }
+                Constant.users.remove(user);
                 user.delete();
                 result.put("status","success");
                 return ok(result);
@@ -201,10 +202,11 @@ public class APIController extends Controller {
                 result.put("message","Missing parameter");
                 return ok(result);
             } else {
-                String flow_id = idUtil.nextId();
+                String flow_id = Constant.idUtil.nextId();
                 String flow_tasks = flow_id;
                 String update_time = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date());
                 Flow flow = new Flow(flow_id,flow_name,flow_creator,"Not monitored",flow_tasks,null,update_time);
+                Constant.flows.add(flow);
                 flow.save();                                                                               //插入数据到数据库
                 result.put("status","success");
                 result.put("flow_id", flow_id);
@@ -241,6 +243,7 @@ public class APIController extends Controller {
                     result.put("status", "error");
                     result.put("message", "User not found");
                 }
+                Constant.flows.remove(flow);
                 if(flow_name!=null){
                     flow.setFlow_name(flow_name);
                 }
@@ -249,6 +252,7 @@ public class APIController extends Controller {
                 }
                 String update_time = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date());
                 flow.setUpdate_time(update_time);
+                Constant.flows.add(flow);
                 flow.update();
                 result.put("status","success");
                 return ok(result);
@@ -280,6 +284,7 @@ public class APIController extends Controller {
                     result.put("message", "User not found");
                     return ok(result);
                 }
+                Constant.flows.remove(flow);
                 flow.delete();
                 result.put("status","success");
                 return ok(result);
@@ -338,7 +343,7 @@ public class APIController extends Controller {
                 //get task_id
                 ArrayList<String> taskids = new ArrayList<>();
                 for(int i = 0; i < arr.length(); i++) {
-                    taskids.add(idUtil.nextId());
+                    taskids.add(Constant.idUtil.nextId());
                 }
 
                 Flow flow = Flow.finder.byId(flow_id);
@@ -347,17 +352,23 @@ public class APIController extends Controller {
                     result.put("message","Flow Not Found");
                     return ok(result);
                 }
+
                 if(flow.getFlow_first_id() == null) {
+
+                    Constant.flows.remove(flow);
                     flow.setFlow_first_id(taskids.get(0));
                     flow.update();
+                    Constant.flows.add(flow);
                 }else{
                     //找到最末尾的task 并修改他的newxt task id
                     Task task = Task.finder.byId(flow.getFlow_first_id());
                     while(task.getNext_task_id()!=null){
                         task = Task.finder.byId(task.getNext_task_id());
                     }
+                    Constant.tasks.remove(task);
                     task.setNext_task_id(taskids.get(0));
                     task.update();
+                    Constant.tasks.add(task);
                 }
                 //List<Task> list = new ArrayList<Task>();
                 for(int i = 0; i < arr.length(); i++){
@@ -371,6 +382,7 @@ public class APIController extends Controller {
                         next_task_id =taskids.get(i+1);
                     }
                     Task task = new Task(task_id,flow_id,user_id,task_name,task_app_id,task_type,next_task_id,update_time);
+                    Constant.tasks.add(task);
                     task.save();
                 }
                 result.put("status","success");
@@ -422,9 +434,17 @@ public class APIController extends Controller {
                 for(int i = 0; i < arr.length(); i++){
                     String task_id = arr.getJSONObject(i).getString("task_id");
                     String update_time = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date());
-                    Monitor monitor = new Monitor(idUtil.nextId(),task_id,update_time);
+                    Monitor monitor = new Monitor(Constant.idUtil.nextId(),task_id,update_time);
+                    Constant.monitors.add(monitor);
                     monitor.save();
                 }
+                //启动定时器对任务进行监控
+                if(Constant.timer == null){
+                    Constant.timer = new Timer();
+                    Monitor_Task monitor_task = new Monitor_Task();
+                    Constant.timer.schedule(monitor_task,30000);
+                }
+
                 result.put("status","success");
                 return ok(result);
             }

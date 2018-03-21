@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import java.util.Objects;
 
 @Entity
-public class Alarm extends Model{
+public class AHistory extends Model{
     @Id
     private String alarm_id;
     private String flow_id;
@@ -20,9 +20,9 @@ public class Alarm extends Model{
     private String update_time;
     private String error_message;
 
-    public static Finder<String, Alarm> finder = new Finder<>(Alarm.class);
+    public static Finder<String, AHistory> finder = new Finder<>(AHistory.class);
 
-    public Alarm(String alarm_id, String flow_id, String flow_creator, String flow_name, String task_id, String task_name, String task_creator, String update_time, String error_message) {
+    public AHistory(String alarm_id, String flow_id, String flow_creator, String flow_name, String task_id, String task_name, String task_creator, String update_time, String error_message) {
         this.alarm_id = alarm_id;
         this.flow_id = flow_id;
         this.flow_creator = flow_creator;
@@ -109,17 +109,17 @@ public class Alarm extends Model{
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Alarm)) return false;
-        Alarm alarm = (Alarm) o;
-        return Objects.equals(getAlarm_id(), alarm.getAlarm_id()) &&
-                Objects.equals(getFlow_id(), alarm.getFlow_id()) &&
-                Objects.equals(getFlow_creator(), alarm.getFlow_creator()) &&
-                Objects.equals(getFlow_name(), alarm.getFlow_name()) &&
-                Objects.equals(getTask_id(), alarm.getTask_id()) &&
-                Objects.equals(getTask_name(), alarm.getTask_name()) &&
-                Objects.equals(getTask_creator(), alarm.getTask_creator()) &&
-                Objects.equals(getUpdate_time(), alarm.getUpdate_time()) &&
-                Objects.equals(getError_message(), alarm.getError_message());
+        if (!(o instanceof AHistory)) return false;
+        AHistory that = (AHistory) o;
+        return Objects.equals(getAlarm_id(), that.getAlarm_id()) &&
+                Objects.equals(getFlow_id(), that.getFlow_id()) &&
+                Objects.equals(getFlow_creator(), that.getFlow_creator()) &&
+                Objects.equals(getFlow_name(), that.getFlow_name()) &&
+                Objects.equals(getTask_id(), that.getTask_id()) &&
+                Objects.equals(getTask_name(), that.getTask_name()) &&
+                Objects.equals(getTask_creator(), that.getTask_creator()) &&
+                Objects.equals(getUpdate_time(), that.getUpdate_time()) &&
+                Objects.equals(getError_message(), that.getError_message());
     }
 
     @Override

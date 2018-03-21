@@ -6,6 +6,7 @@ import org.mindrot.jbcrypt.BCrypt;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.util.Objects;
 
 @Entity
 public class User extends Model{
@@ -90,4 +91,22 @@ public class User extends Model{
         this.update_time = update_time;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return Objects.equals(getUser_id(), user.getUser_id()) &&
+                Objects.equals(getUser_name(), user.getUser_name()) &&
+                Objects.equals(getUser_mail(), user.getUser_mail()) &&
+                Objects.equals(getUser_phone(), user.getUser_phone()) &&
+                Objects.equals(getUser_password(), user.getUser_password()) &&
+                Objects.equals(getUpdate_time(), user.getUpdate_time());
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(getUser_id(), getUser_name(), getUser_mail(), getUser_phone(), getUser_password(), getUpdate_time());
+    }
 }

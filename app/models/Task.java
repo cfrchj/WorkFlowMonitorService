@@ -5,6 +5,7 @@ import io.ebean.Model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.util.Objects;
 
 @Entity
 public class Task extends Model{
@@ -94,5 +95,26 @@ public class Task extends Model{
 
     public void setUpdate_time(String update_time) {
         this.update_time = update_time;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Task)) return false;
+        Task task = (Task) o;
+        return Objects.equals(getTask_id(), task.getTask_id()) &&
+                Objects.equals(getFlow_id(), task.getFlow_id()) &&
+                Objects.equals(getUser_id(), task.getUser_id()) &&
+                Objects.equals(getTask_name(), task.getTask_name()) &&
+                Objects.equals(getYarn_id(), task.getYarn_id()) &&
+                Objects.equals(getTask_type(), task.getTask_type()) &&
+                Objects.equals(getNext_task_id(), task.getNext_task_id()) &&
+                Objects.equals(getUpdate_time(), task.getUpdate_time());
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(getTask_id(), getFlow_id(), getUser_id(), getTask_name(), getYarn_id(), getTask_type(), getNext_task_id(), getUpdate_time());
     }
 }

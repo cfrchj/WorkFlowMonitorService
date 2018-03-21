@@ -5,6 +5,7 @@ import io.ebean.Model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.util.Objects;
 
 @Entity
 public class Monitor extends Model {
@@ -44,5 +45,21 @@ public class Monitor extends Model {
 
     public void setCreate_time(String create_time) {
         this.create_time = create_time;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Monitor)) return false;
+        Monitor monitor = (Monitor) o;
+        return Objects.equals(getMonitor_id(), monitor.getMonitor_id()) &&
+                Objects.equals(getTask_id(), monitor.getTask_id()) &&
+                Objects.equals(getCreate_time(), monitor.getCreate_time());
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(getMonitor_id(), getTask_id(), getCreate_time());
     }
 }

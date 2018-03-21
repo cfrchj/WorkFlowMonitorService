@@ -50,9 +50,14 @@ public class YarnUtils {
         return status;
     }
 
-    public static void close() throws IOException {
-        client.stop();
-        client.close();
+    public static void close(){
+
+        try {
+            client.stop();
+            client.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static YarnClient getClient() {
