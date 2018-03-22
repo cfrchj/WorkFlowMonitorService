@@ -31,6 +31,9 @@ public class HomeController extends Controller {
     public Result mainPage(){
 
         String userid = session("userid");
+        if(userid == null){
+            return redirect(routes.HomeController.login());
+        }
         User u = User.finder.byId(userid);
 
         if(u == null){
@@ -63,6 +66,7 @@ public class HomeController extends Controller {
 
     //登录
     public  Result login() {
+        Constant.InitMemList();
         return ok(login.render());
     }
 
@@ -84,6 +88,10 @@ public class HomeController extends Controller {
         return  TODO;
     }
 
+    public Result logout(){
+        session().clear();
+        return redirect("/");
+    }
     //用户主页
     public Result userPage(){
         String userid = session("userid");

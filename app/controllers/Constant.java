@@ -18,6 +18,7 @@ public class Constant {
     public static List<AHistory> alarmHistories = null;
     public static Boolean notInited = true;
     public static Timer timer = null;
+
     public static void InitMemList(){
         if(notInited){
             users = User.finder.all();
