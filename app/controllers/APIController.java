@@ -203,9 +203,8 @@ public class APIController extends Controller {
                 return ok(result);
             } else {
                 String flow_id = Constant.idUtil.nextId();
-                String flow_tasks = flow_id;
                 String update_time = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date());
-                Flow flow = new Flow(flow_id,flow_name,flow_creator,"Not monitored",flow_tasks,null,update_time);
+                Flow flow = new Flow(flow_id,flow_name,flow_creator,"Not monitored",null,update_time);
                 Constant.flows.add(flow);
                 flow.save();                                                                               //插入数据到数据库
                 result.put("status","success");

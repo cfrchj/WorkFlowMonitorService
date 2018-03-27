@@ -21,6 +21,10 @@ POST    /Login                      controllers.HomeController.postLogin()
 GET     /UserPage                   controllers.HomeController.userPage()
 #WorkFlow
 GET     /WorkFLow                   controllers.HomeController.workFlow()
+
+GET     /CreateFLow                 controllers.HomeController.createFlow()
+
+POST    /CreateFlow                 controllers.HomeController.postCreateFlow()
 #
 GET     /TaskMonitor                controllers.HomeController.taskMonitor()
 #

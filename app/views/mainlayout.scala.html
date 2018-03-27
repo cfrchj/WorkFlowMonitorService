@@ -10,35 +10,35 @@
     </head>
     <body>
         <header>
-            <div class = "navbar navbar-default">
+            <nav class="navbar navbar-default">
                 <div class="container">
-                    <div class = "navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#exnav">
-                            <span class = "icon-bar"></span>
-                            <span class = "icon-bar"></span>
-                            <span class = "icon-bar"></span>
-
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
                         </button>
-                        <a href="@routes.HomeController.mainPage()" class="navbar-brand">CRS2业务监控系统</a>
+                        <a class="navbar-brand" href="@routes.HomeController.mainPage()">CRS2业务监控系统</a>
                     </div>
-                    <div class = "collapse navbar-collapse" id="exnav">
-                        <ul class="nav navbar-nav navbar-left ">
+
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+
                             <li class="dropdown">
-                                <a href="@routes.HomeController.workFlow()" class="dropdown-toggle" data-toggle="dropdown">
-                                    工作流<b class="caret"></b>
-                                </a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">工作流 <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#">创建工作流</a></li>
+                                    <li><a href="@routes.HomeController.createFlow()">创建工作流</a></li>
                                     <li><a href="#">查看工作流</a></li>
                                     <li><a href="#">修改工作流</a></li>
                                     <li><a href="#">删除工作流</a></li>
                                 </ul>
                             </li>
                             <li class="dropdown">
-                                <a href="@routes.HomeController.taskMonitor()" class="dropdown-toggle" data-toggle="dropdown">
-                                    监控任务<b class="caret"></b>
-                                </a>
-                                <ul class="dropdown-menu">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">监控任务 <span class="caret"></span></a>
+                                <ul class="dropdown-menu" >
                                     <li><a href="#">创建监控任务</a></li>
                                     <li><a href="#">查看监控任务</a></li>
                                     <li><a href="#">修改监控任务</a></li>
@@ -46,31 +46,35 @@
                                 </ul>
                             </li>
                             <li class="dropdown">
-                                <a href="@routes.HomeController.alarmInfo()" class="dropdown-toggle" data-toggle="dropdown">
-                                    告警信息<b class="caret"></b>
-                                </a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">告警信息 <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="#">查看告警信息</a></li>
                                     <li><a href="#">删除告警信息</a></li>
                                 </ul>
                             </li>
                         </ul>
+
+                        <form class="navbar-form navbar-left">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Search">
+                            </div>
+                            <button type="submit" class="btn btn-default">Submit</button>
+                        </form>
+
                         <ul class="nav navbar-nav navbar-right">
                             <li class="dropdown">
-                                <a href="@routes.HomeController.userPage()" class="dropdown-toggle" data-toggle="dropdown">
-                                    @username<b class="caret"></b>
-                                </a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@username <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#">修改信息</a> </li>
+                                    <li><a href="#">修改信息</a></li>
                                     <li><a href="#">更改密码</a></li>
                                     <li><a href="@routes.HomeController.logout()">注销登录</a></li>
                                 </ul>
                             </li>
                         </ul>
-                    </div>
+                    </div><!-- /.navbar-collapse -->
+                </div><!-- /.container-fluid -->
+            </nav>
 
-                </div>
-            </div>
         </header>
 
 

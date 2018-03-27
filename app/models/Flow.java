@@ -15,21 +15,19 @@ public class Flow extends Model{
     private String flow_name;
     private String flow_creator;
     private String flow_status;
-    private String flow_tasks;
     private String flow_first_id;
     private String update_time;
 
-    public Flow(String flow_id, String flow_name, String flow_creator, String flow_status, String flow_tasks, String flow_first_id, String update_time) {
+    public static Finder<String,Flow> finder = new Finder<>(Flow.class);
+
+    public Flow(String flow_id, String flow_name, String flow_creator, String flow_status, String flow_first_id, String update_time) {
         this.flow_id = flow_id;
         this.flow_name = flow_name;
         this.flow_creator = flow_creator;
         this.flow_status = flow_status;
-        this.flow_tasks = flow_tasks;
         this.flow_first_id = flow_first_id;
         this.update_time = update_time;
     }
-
-    public static Finder<String, Flow> finder = new Finder<>(Flow.class);
 
     public String getFlow_id() {
         return flow_id;
@@ -63,14 +61,6 @@ public class Flow extends Model{
         this.flow_status = flow_status;
     }
 
-    public String getFlow_tasks() {
-        return flow_tasks;
-    }
-
-    public void setFlow_tasks(String flow_tasks) {
-        this.flow_tasks = flow_tasks;
-    }
-
     public String getFlow_first_id() {
         return flow_first_id;
     }
@@ -96,7 +86,6 @@ public class Flow extends Model{
                 Objects.equals(getFlow_name(), flow.getFlow_name()) &&
                 Objects.equals(getFlow_creator(), flow.getFlow_creator()) &&
                 Objects.equals(getFlow_status(), flow.getFlow_status()) &&
-                Objects.equals(getFlow_tasks(), flow.getFlow_tasks()) &&
                 Objects.equals(getFlow_first_id(), flow.getFlow_first_id()) &&
                 Objects.equals(getUpdate_time(), flow.getUpdate_time());
     }
@@ -104,6 +93,6 @@ public class Flow extends Model{
     @Override
     public int hashCode() {
 
-        return Objects.hash(getFlow_id(), getFlow_name(), getFlow_creator(), getFlow_status(), getFlow_tasks(), getFlow_first_id(), getUpdate_time());
+        return Objects.hash(getFlow_id(), getFlow_name(), getFlow_creator(), getFlow_status(), getFlow_first_id(), getUpdate_time());
     }
 }
