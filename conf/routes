@@ -20,17 +20,21 @@ POST    /Login                      controllers.HomeController.postLogin()
 #UserPage
 GET     /UserPage                   controllers.HomeController.userPage()
 #WorkFlow
-GET     /WorkFLow                   controllers.HomeController.workFlow()
+GET     /WorkFlow                   controllers.HomeController.workFlow()
 
 GET     /CreateFLow                 controllers.HomeController.createFlow()
 
 POST    /CreateFlow                 controllers.HomeController.postCreateFlow()
+
+GET     /DeleteFlow/:id             controllers.HomeController.deleteFlow(id:String)
 #
 GET     /TaskMonitor                controllers.HomeController.taskMonitor()
 #
 GET     /AlarmInfo                  controllers.HomeController.alarmInfo()
 #log out
 GET     /Logout                     controllers.HomeController.logout()
+
+GET     /Test                       controllers.HomeController.test()
 #++++++++++++++++++++++++++++++++++++++++++
 #RESTFUL API
 

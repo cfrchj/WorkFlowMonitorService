@@ -1,0 +1,10 @@
+@(user:User)
+
+@mainlayout("主页")(user.getUser_name){
+    <h1>个人信息</h1>
+    <p>用户ID :@user.getUser_id</p>
+    <p>用户名 :@user.getUser_name</p>
+    <p>电子邮箱 :@user.getUser_mail</p>
+    <p>手机号码 :@user.getUser_phone</p>
+
+}

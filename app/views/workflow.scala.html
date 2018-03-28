@@ -1,0 +1,26 @@
+@(flows:List[Flow])(username:String)
+
+@mainlayout("工作流")(username){
+    <table class="table table-striped">
+        <caption>工作流</caption>
+        <thead>
+            <tr>
+                <th>流ID</th>
+                <th>流名称</th>
+                <th>流状态</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for(flow <- flows){
+                <tr>
+                    <td>@flow.getFlow_id()</td>
+                    <td>@flow.getFlow_name()</td>
+                    <td>@flow.getFlow_status()</td>
+                    <td><a href="@routes.HomeController.deleteFlow(flow.getFlow_id)">删除</a><a> </a><a href="">修改</a><a> </a><a href="">添加任务</a>  </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+}

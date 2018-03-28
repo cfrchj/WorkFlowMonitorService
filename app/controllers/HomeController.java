@@ -10,8 +10,11 @@ import views.html.*;
 
 
 import javax.inject.Inject;
+import java.nio.channels.FileLock;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import static controllers.Constant.findUserbyName;
 import static controllers.Constant.users;
@@ -24,6 +27,7 @@ public class HomeController extends Controller {
     //登录注册界面
     public Result index() {
         Constant.InitMemList();
+
         String userid = session("userid");
         if(userid == null){
             return ok(index.render());
@@ -39,6 +43,7 @@ public class HomeController extends Controller {
 
     //登录后的主页
     public Result mainPage(){
+        Constant.InitMemList();
 
         String userid = session("userid");
         if(userid == null){
@@ -55,6 +60,7 @@ public class HomeController extends Controller {
 
     //注册
     public Result register() {
+        Constant.InitMemList();
         return ok(create.render());
     }
 
@@ -104,18 +110,28 @@ public class HomeController extends Controller {
     }
     //用户主页
     public Result userPage(){
+        Constant.InitMemList();
         String userid = session("userid");
         User user = User.finder.byId(userid);
-        //return ok(userpage.render(user));
-        return TODO;
+        return ok(userpage.render(user));
     }
 
     //工作流页面
     public Result workFlow(){
-
-        return TODO;
+        Constant.InitMemList();
+        String userid = session("userid");
+        User u = User.finder.byId(userid);
+        List<Flow> my_flows = new ArrayList<>();
+        for(Flow flow:Constant.flows){
+            if(flow.getFlow_creator().equals(userid)){
+                my_flows.add(flow);
+            }
+        }
+        return ok(workflow.render(my_flows,u.getUser_name()));
     }
+
     public Result createFlow(){
+        Constant.InitMemList();
         String userid = session("userid");
         User u = User.finder.byId(userid);
         return ok(flow_create.render(u.getUser_name()));
@@ -134,6 +150,14 @@ public class HomeController extends Controller {
         return redirect(routes.HomeController.workFlow());
     }
 
+    public Result deleteFlow(String id){
+        Flow flow = Flow.finder.byId(id);
+        Constant.InitMemList();
+        Constant.flows.remove(flow);
+        flow.delete();
+        return redirect(routes.HomeController.workFlow());
+    }
+
     //业务监控页面
     public Result taskMonitor(){
         return TODO;
@@ -142,5 +166,9 @@ public class HomeController extends Controller {
     //告警信息页面
     public Result alarmInfo(){
         return TODO;
+    }
+
+    public Result test(){
+        return  ok(test.render());
     }
 }
